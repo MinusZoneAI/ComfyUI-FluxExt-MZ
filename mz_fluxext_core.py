@@ -13,6 +13,8 @@ from torch import Tensor, nn
 
 def Flux1PartialLoad_Patch(args={}):
     model = args.get("model")
+    double_blocks_cuda_size = args.get("double_blocks_cuda_size")
+    single_blocks_cuda_size = args.get("single_blocks_cuda_size")
 
     def other_to_cpu():
         model.model.diffusion_model.img_in.to("cpu")
@@ -105,7 +107,7 @@ def Flux1PartialLoad_Patch(args={}):
         pre_only_model_forward_hook)
 
     double_blocks_depth = len(model.model.diffusion_model.double_blocks)
-    steps = 7
+    steps = double_blocks_cuda_size
     for i in range(0, double_blocks_depth, steps):
         s = steps
         if i + s > double_blocks_depth:
@@ -114,7 +116,7 @@ def Flux1PartialLoad_Patch(args={}):
             generate_double_blocks_forward_hook(i, s))
 
     single_blocks_depth = len(model.model.diffusion_model.single_blocks)
-    steps = 7
+    steps = single_blocks_cuda_size
     for i in range(0, single_blocks_depth, steps):
         s = steps
         if i + s > single_blocks_depth:

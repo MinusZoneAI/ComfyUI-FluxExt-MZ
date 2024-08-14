@@ -34,8 +34,8 @@ class MZ_Flux1PartialLoad_Patch:
     def INPUT_TYPES(s):
         return {"required": {
             "model": ("MODEL", ),
-            "double_blocks_cuda_size": ("INT", {"min": 0, "max": 16}),
-            "single_blocks_cuda_size": ("INT", {"min": 0, "max": 37}),
+            "double_blocks_cuda_size": ("INT", {"min": 0, "max": 16, "default": 7}),
+            "single_blocks_cuda_size": ("INT", {"min": 0, "max": 37, "default": 7}),
         }}
     RETURN_TYPES = ("MODEL",)
     FUNCTION = "load_unet"
