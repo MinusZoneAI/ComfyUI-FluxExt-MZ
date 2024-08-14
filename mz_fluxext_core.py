@@ -24,6 +24,8 @@ def Flux1PartialLoad_Patch(args={}):
         model.model.diffusion_model.txt_in.to("cpu")
         model.model.diffusion_model.pe_embedder.to("cpu")
 
+        torch.cuda.empty_cache()
+
     def other_to_cuda():
         model.model.diffusion_model.img_in.to("cuda")
         model.model.diffusion_model.time_in.to("cuda")
