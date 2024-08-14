@@ -11,7 +11,7 @@ import safetensors
 from torch import Tensor, nn
 
 
-def MZ_Flux1VRAM_MT_Patch_call(args={}):
+def Flux1PartialLoad_Patch(args={}):
     model = args.get("model")
 
     def other_to_cpu():
@@ -100,6 +100,7 @@ def MZ_Flux1VRAM_MT_Patch_call(args={}):
         print("other to cuda")
         other_to_cuda()
         return inp
+
     model.model.diffusion_model.register_forward_pre_hook(
         pre_only_model_forward_hook)
 

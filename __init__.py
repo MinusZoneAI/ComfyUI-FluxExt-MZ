@@ -29,11 +29,13 @@ from . import mz_fluxext_core
 import importlib
 
 
-class MZ_Flux1VRAM_MT_Patch:
+class MZ_Flux1PartialLoad_Patch:
     @classmethod
     def INPUT_TYPES(s):
         return {"required": {
-            "model": ("MODEL", )
+            "model": ("MODEL", ),
+            "double_blocks_cuda_size": ("INT", {"min": 0, "max": 16}),
+            "single_blocks_cuda_size": ("INT", {"min": 0, "max": 37}),
         }}
     RETURN_TYPES = ("MODEL",)
     FUNCTION = "load_unet"
@@ -43,8 +45,8 @@ class MZ_Flux1VRAM_MT_Patch:
     def load_unet(self, **kwargs):
         from . import mz_fluxext_core
         importlib.reload(mz_fluxext_core)
-        return mz_fluxext_core.MZ_Flux1VRAM_MT_Patch_call(kwargs)
+        return mz_fluxext_core.Flux1PartialLoad_Patch(kwargs)
 
 
-NODE_CLASS_MAPPINGS["MZ_Flux1VRAM_MT_Patch"] = MZ_Flux1VRAM_MT_Patch
-NODE_DISPLAY_NAME_MAPPINGS["MZ_Flux1VRAM_MT_Patch"] = f"{AUTHOR_NAME} - Flux1VRAM_MT_Patch"
+NODE_CLASS_MAPPINGS["MZ_Flux1PartialLoad_Patch"] = MZ_Flux1PartialLoad_Patch
+NODE_DISPLAY_NAME_MAPPINGS["MZ_Flux1PartialLoad_Patch"] = f"{AUTHOR_NAME} - Flux1PartialLoad_Patch"
