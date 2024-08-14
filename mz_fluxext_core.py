@@ -9,10 +9,12 @@ import safetensors
 
 
 from torch import Tensor, nn
+import copy
 
 
 def Flux1PartialLoad_Patch(args={}):
     model = args.get("model")
+
     double_blocks_cuda_size = args.get("double_blocks_cuda_size")
     single_blocks_cuda_size = args.get("single_blocks_cuda_size")
 
