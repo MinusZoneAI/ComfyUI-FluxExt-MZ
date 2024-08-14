@@ -39,7 +39,7 @@ def Flux1PartialLoad_Patch(args={}):
             model.model.diffusion_model.double_blocks[layer_start:layer_start +
                                                       layer_size].to("cpu")
         torch.cuda.empty_cache()
-        gc.collect()
+        # gc.collect()
 
     def double_blocks_to_cuda(layer_start=0, layer_size=-1):
         if layer_size == -1:
@@ -55,7 +55,7 @@ def Flux1PartialLoad_Patch(args={}):
             model.model.diffusion_model.single_blocks[layer_start:layer_start +
                                                       layer_size].to("cpu")
         torch.cuda.empty_cache()
-        gc.collect()
+        # gc.collect()
 
     def single_blocks_to_cuda(layer_start=0, layer_size=-1):
         if layer_size == -1:
